@@ -41,7 +41,7 @@ services:
   web:
     container_name: web-app
     build: .
-    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    command: bash -c "rm -f tmp/pids/server.pid && bundle install --without production && bundle exec rails s -p 3000 -b '0.0.0.0'"
     env_file:
       - .env
     volumes:
