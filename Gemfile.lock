@@ -73,6 +73,7 @@ GEM
     bootsnap (1.16.0)
       msgpack (~> 1.2)
     builder (3.2.4)
+    byebug (11.1.3)
     capybara (3.39.2)
       addressable
       matrix
@@ -103,6 +104,9 @@ GEM
     graphql-client (0.18.0)
       activesupport (>= 3.0)
       graphql
+    httparty (0.21.0)
+      mini_mime (>= 1.0.0)
+      multi_xml (>= 0.5.2)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     importmap-rails (1.2.1)
@@ -129,6 +133,7 @@ GEM
     mini_mime (1.1.5)
     minitest (5.20.0)
     msgpack (1.7.2)
+    multi_xml (0.6.0)
     net-imap (0.3.7)
       date
       net-protocol
@@ -231,9 +236,11 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap
+  byebug
   capybara
   debug
   graphql (>= 2.0.27, < 2.1)
+  httparty
   importmap-rails
   jbuilder
   pg (~> 1.1)

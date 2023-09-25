@@ -31,6 +31,10 @@ gem "graphql", '>= 2.0.27', '< 2.1'
 
 gem "weaviate-ruby"
 
+gem "httparty"
+
+gem "byebug"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 

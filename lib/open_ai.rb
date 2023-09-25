@@ -1,13 +1,12 @@
 require 'httparty'
 require 'json'
-require 'dotenv/load'
 
-class OpenAI
+class OpenAi
   include HTTParty
   base_uri 'https://api.openai.com/v1'
 
   @model = 'gpt-3.5-turbo'
-  @api_key = ENV['OPEN_AI_API_KEY']
+  @api_key = ENV['OPENAI_APIKEY']
   @default_headers = { headers: { 'Authorization': "Bearer #{@api_key}" } }
 
   class << self
@@ -97,7 +96,17 @@ class OpenAI
         end
       end
 
-      arr.unshift({role: 'system', content: "You are an helpful customer support person working for the 'Rently' company and you should answer the queries asked by customers in the context of Rently."})
+      # arr.unshift({role: 'system', content: "You are an helpful customer support person working for the 'Rently' company and you should answer the queries asked by customers in the context of Rently."})
+      arr.unshift({role: 'system', content: embedding_prompt(arr.last[:content])})
+    end
+
+    def embedding_prompt(prompt)
+      document = WeaviateClient.query_document(prompt).first
+      <<~EOL
+        You are an helpful customer support agent working for the 'Rently' company. Analyse the following document which consist of multiple questions having one common answer at the bottom. Based on the analysis, answer the question asked by the user.
+
+        #{document['content']}
+      EOL
     end
   end
 end

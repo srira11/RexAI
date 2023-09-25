@@ -5,5 +5,14 @@ class WeaviateClient
     def create_client
       Weaviate::Client.new( url: 'http://weaviate:8080' )
     end
+
+    def query_document(prompt)
+      create_client.query.get(
+        class_name: 'Document',
+        fields: 'content type',
+        near_text: '{ concepts: ["' << prompt << '"], distance: 0.5 }',
+        limit: '1'
+      )
+    end
   end
 end
