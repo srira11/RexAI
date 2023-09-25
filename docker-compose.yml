@@ -1,0 +1,59 @@
+version: '3.4'
+services:
+  db:
+    image: postgres
+    container_name: postgres-db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - '6000:5432'
+  weaviate:
+    command:
+      - --host
+      - 0.0.0.0
+      - --port
+      - '8080'
+      - --scheme
+      - http
+    image: semitechnologies/weaviate:1.21.2
+    ports:
+      - 8080:8080
+    volumes:
+      - weaviate_data:/var/lib/weaviate
+    restart: on-failure:0
+    environment:
+      QUERY_DEFAULTS_LIMIT: 25
+      AUTHENTICATION_ANONYMOUS_ACCESS_ENABLED: 'true'
+      PERSISTENCE_DATA_PATH: '/var/lib/weaviate'
+      DEFAULT_VECTORIZER_MODULE: 'text2vec-transformers'
+      ENABLE_MODULES: 'text2vec-transformers,text2vec-openai,'
+      TRANSFORMERS_INFERENCE_API: http://t2v-transformers:8080
+      CLUSTER_HOSTNAME: 'node1'
+    env_file:
+      - .env
+  t2v-transformers:
+    image: semitechnologies/transformers-inference:sentence-transformers-multi-qa-MiniLM-L6-cos-v1
+    environment:
+      ENABLE_CUDA: 0
+  web:
+    container_name: web-app
+    build: .
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    env_file:
+      - .env
+    volumes:
+      - .:/web-app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - t2v-transformers
+      - weaviate
+    tty: true
+    stdin_open: true
+volumes:
+  postgres:
+  weaviate_data:
