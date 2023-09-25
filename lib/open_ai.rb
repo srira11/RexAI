@@ -1,6 +1,3 @@
-require 'httparty'
-require 'json'
-
 class OpenAi
   include HTTParty
   base_uri 'https://api.openai.com/v1'
@@ -102,11 +99,16 @@ class OpenAi
 
     def embedding_prompt(prompt)
       document = WeaviateClient.query_document(prompt).first
-      <<~EOL
-        You are an helpful customer support agent working for the 'Rently' company. Analyse the following document which consist of multiple questions having one common answer at the bottom. Based on the analysis, answer the question asked by the user.
 
-        #{document['content']}
-      EOL
+      if document
+        <<~EOL
+          You are an helpful customer support agent working for the 'Rently' company. Analyse the following document which consist of multiple questions having one common answer at the bottom. Based on the analysis, answer the question asked by the user.
+  
+          #{document['content']}
+        EOL
+      else
+        "You are an helpful customer support person working for the 'Rently' company and you should answer the queries asked by customers in the context of Rently."
+      end
     end
   end
 end
