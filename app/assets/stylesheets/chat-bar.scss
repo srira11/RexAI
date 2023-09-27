@@ -17,17 +17,15 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding-right: 10px;
+    padding: 10px;
 
     textarea{
-      border-top-left-radius: 50px;
-      border-bottom-left-radius: 50px;
       border: none;
-      width: calc(100% - 80px);
+      width: calc(100% - 45px);
       background: var(--light-grey);
-      padding: 20px;
-      height: calc(1.2em + 40px);
+      height: calc(1.2em);
       resize: none;
+      padding: 0 0 0 10px;
 
       &::-webkit-scrollbar-track {
         background: transparent !important;

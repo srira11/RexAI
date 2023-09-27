@@ -33,6 +33,8 @@ gem "weaviate-ruby"
 
 gem "httparty"
 
+gem "redcarpet"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
