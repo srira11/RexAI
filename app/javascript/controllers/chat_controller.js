@@ -1,9 +1,9 @@
-import { Controller } from "@hotwired/stimulus"
+import {Controller} from "@hotwired/stimulus"
 
 export default class extends Controller {
     static targets = ['chatBox', 'prompt'];
 
-    initialize(){
+    initialize() {
         this.embeddedChats = [];
         this.fineTunedChats = [];
 
@@ -12,7 +12,7 @@ export default class extends Controller {
 
     changeModel(event) {
         let element = event.target;
-        if(!element.classList.contains('active')) {
+        if (!element.classList.contains('active')) {
             let activeElement = document.querySelector('nav .left.column a.active');
             activeElement.classList.toggle('active');
             element.classList.toggle('active');
@@ -21,7 +21,7 @@ export default class extends Controller {
         }
     }
 
-    createMessage(message, type){
+    createMessage(message, type) {
         let element = document.createElement('div');
         element.classList.add(type, 'message');
         element.innerHTML = `<div><div class="avatar"></div></div>`
@@ -34,7 +34,7 @@ export default class extends Controller {
         return element;
     }
 
-    appendMessage(message, type){
+    appendMessage(message, type) {
         this.chatBoxTarget.appendChild(this.createMessage(message, type));
     }
 
@@ -43,7 +43,7 @@ export default class extends Controller {
         this.chatBoxTarget.innerHTML = '';
 
         this.messagesArray.forEach((message) => {
-            if(index ^ 1)
+            if (index ^ 1)
                 this.chatBoxTarget.appendChild(this.createMessage(message, 'assistant'));
             else
                 this.chatBoxTarget.appendChild(this.createMessage(message, 'user'));
@@ -52,22 +52,28 @@ export default class extends Controller {
         });
     }
 
-    messagesArray(){
+    messagesArray() {
         return this.model === 'Fine-tuned' ? this.fineTunedChats : this.embeddedChats;
     }
 
-    snakeCaseModel(){
-        if(this.model === 'Fine-tuned')
+    snakeCaseModel() {
+        if (this.model === 'Fine-tuned')
             return 'fine_tuned';
         else
             return 'embedded';
     }
 
-    async chatCompletion(event){
+    async chatCompletion(event) {
         let prompt = this.promptTarget.value;
-        this.promptTarget.value = '';
-        this.appendMessage(prompt, 'user');
+        if (/^\s*$/g.test(prompt)) return;
+
         this.messagesArray().push(prompt);
+        this.appendMessage(prompt, 'user');
+        this.appendMessage('', 'assistant');
+
+        let lastContent = document.querySelector('.chat-room .message:last-child .content');
+        lastContent.innerHTML = `<div class="ui active inline orange double loader"></div>`;
+        this.scrollToBottom();
 
         let formData = new FormData();
         formData.append('type', this.snakeCaseModel());
@@ -75,6 +81,7 @@ export default class extends Controller {
             formData.append('messages[]', message);
         });
 
+        this.promptTarget.value = '';
         let response = await fetch('/chats', {
             method: 'POST',
             body: formData,
@@ -82,6 +89,11 @@ export default class extends Controller {
         let result = await response.json();
 
         this.messagesArray().push(result['completion']);
-        this.appendMessage(result['completion'], 'assistant');
+        lastContent.innerText = result['completion'];
+        this.scrollToBottom();
+    }
+
+    scrollToBottom() {
+        this.chatBoxTarget.scrollTo({top: this.chatBoxTarget.scrollHeight});
     }
 }

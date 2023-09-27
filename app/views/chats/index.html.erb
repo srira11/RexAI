@@ -1,10 +1,10 @@
 <div class="chat-room" data-chat-target="chatBox">
 
 </div>
-<div id="chat-gradient">
+<div id="chat-gradient" data-controller="textarea">
   <div class="input bar">
-    <textarea data-chat-target="prompt"></textarea>
-    <button class="submit button" data-action="click->chat#chatCompletion">
+    <textarea data-chat-target="prompt" data-action="keydown.shift+enter->chat#chatCompletion:prevent keydown.enter->textarea#expand keyup->textarea#minimize"></textarea>
+    <button class="submit button" data-action="click->chat#chatCompletion" data-tooltip="shift + enter" data-position="top center" data-inverted="true" data-variation="mini basic">
       <i class="large telegram plane link icon"></i>
     </button>
   </div>

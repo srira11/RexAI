@@ -1,5 +1,6 @@
 .chat-room{
   overflow-y: scroll;
+  scroll-behavior: smooth;
   height: 88%;
   padding-top: 30px;
   padding-bottom: 120px;
@@ -9,7 +10,7 @@
   }
 
   .message{
-    padding: 30px 14vw;
+    padding: 45px 14vw;
     display: flex;
 
     .avatar{
@@ -36,6 +37,10 @@
 
     .content{
       padding: 5px 0 0 30px;
+
+      .loader{
+        z-index: 1 !important;
+      }
     }
   }
 }
