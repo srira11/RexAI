@@ -5,7 +5,9 @@ class ChatsController < ApplicationController
   end
 
   def create
-    render(plain: OpenAi.create_chat_completion(messages: params[:messages]))
+    render(json: {
+      completion: OpenAi.create_chat_completion(messages: params[:messages])
+    })
     return
   end
 end

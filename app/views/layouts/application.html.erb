@@ -12,11 +12,11 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body data-controller="chat">
     <nav class="ui grid">
       <div class="left five wide column">
-        <a id="fine-tune-item" class="active">Fine-tuned</a>
-        <a id="embedded-item">Embedded</a>
+        <a id="fine-tune-item" class="active" data-action="click->chat#changeModel">Fine-tuned</a>
+        <a id="embedded-item" data-action="click->chat#changeModel">Embedded</a>
       </div>
       <div class="center six wide column">
         <%= image_tag('logo.svg') %>

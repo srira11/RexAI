@@ -1,94 +1,11 @@
-<div class="chat-room">
-  <div class="user message">
-    <div class="avatar">
-      <div></div>
-    </div>
-    <div class="content">Lorem ipsum dolor sit amen culpa qui officia deserunt mollit anim id est laborum.</div>
-  </div>
-  <div class="assistant message">
-    <div class="avatar">
-      <div></div>
-    </div>
-    <div class="content">Lorem ipsum dolor sit amet, consectetur adipi ipsum dolor sit amet, consectetur adipiscing
-      elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-      exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-      voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-      in culpa qui officia deserunt mollit anim id est laborscing elit, sed do eiusmod tempor incididunt ut labore et
-      dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-      pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-      laborum.
-    </div>
-  </div>
-  <div class="user message">
-    <div class="avatar">
-      <div></div>
-    </div>
-    <div class="content">Lorem ipsum dolor sit amen culpa qui officia deserunt mollit anim id est laborum.</div>
-  </div>
-  <div class="assistant message">
-    <div class="avatar">
-      <div></div>
-    </div>
-    <div class="content">Lorem ipsum dolor sit amet, consectetur adipi ipsum dolor sit amet, consectetur adipiscing
-      elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-      exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-      voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-      in culpa qui officia deserunt mollit anim id est laborscing elit, sed do eiusmod tempor incididunt ut labore et
-      dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-      pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-      laborum.
-    </div>
-  </div>
-  <div class="user message">
-    <div class="avatar">
-      <div></div>
-    </div>
-    <div class="content">Lorem ipsum dolor sit amen culpa qui officia deserunt mollit anim id est laborum.</div>
-  </div>
-  <div class="assistant message">
-    <div class="avatar">
-      <div></div>
-    </div>
-    <div class="content">Lorem ipsum dolor sit amet, consectetur adipi ipsum dolor sit amet, consectetur adipiscing
-      elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-      exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in
-      voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-      in culpa qui officia deserunt mollit anim id est laborscing elit, sed do eiusmod tempor incididunt ut labore et
-      dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-      pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-      laborum.
-    </div>
-  </div>
-  <div class="user message">
-    <div class="avatar">
-      <div></div>
-    </div>
-    <div class="content">Lorem ipsum dolor sit amen culpa qui officia deserunt mollit anim id est laborum.</div>
-  </div>
-  <div class="assistant message">
-    <div class="avatar">
-      <div></div>
-    </div>
-    <div class="content"><%= markdown('Lorem ipsum dolor sit amet, consectetur adipi ipsum dolor sit amet, consectetur adipiscing
-      elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-      exercitation ullamco laboris nisi ut aliquip ex ea commodo c<script> alert()</script>uat. Duis aute irure dolor in reprehenderit in
-      voluptate velit esse cillum dolore https://google.com eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-      in culpa qui officia deserunt mollit anim id est laborscing elit, sed do eiusmod tempor incididunt ut labore et
-      dolore magna aliqua. Ut enim ad m  [Duck Duck Go](https://duckduckgo.com). inim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat. Duis " hi " aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-      pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-      laborum.') %>
-    </div>
-  </div>
+<div class="chat-room" data-chat-target="chatBox">
+
 </div>
 <div id="chat-gradient">
   <div class="input bar">
-    <textarea></textarea>
-    <div class="submit button">
+    <textarea data-chat-target="prompt"></textarea>
+    <button class="submit button" data-action="click->chat#chatCompletion">
       <i class="large telegram plane link icon"></i>
-    </div>
+    </button>
   </div>
 </div>
