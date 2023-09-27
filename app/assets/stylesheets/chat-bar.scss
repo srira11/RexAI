@@ -1,0 +1,51 @@
+#chat-gradient{
+  position: absolute;
+  height: 20%;
+  width: 100%;
+  background: linear-gradient(transparent, #EE712B5F);
+  bottom: 0;
+  left: 0;
+  display: flex;
+  padding: 0 14vw;
+  align-items: center;
+
+  .input.bar{
+    background: var(--light-grey);
+    border: 1px solid var(--primary-orange);
+    width: 100%;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 10px;
+
+    textarea{
+      border-top-left-radius: 50px;
+      border-bottom-left-radius: 50px;
+      border: none;
+      width: calc(100% - 80px);
+      background: var(--light-grey);
+      padding: 20px;
+      height: calc(1.2em + 40px);
+      resize: none;
+
+      &::-webkit-scrollbar-track {
+        background: transparent !important;
+      }
+
+      &:focus{
+        outline: none;
+      }
+    }
+
+    .submit.button{
+      height: 40px;
+      width: 40px;
+      background: var(--secondary-orange);
+      border-radius: 10px;
+      display: grid;
+      place-content: center;
+      color: var(--light-grey) !important;
+    }
+  }
+}

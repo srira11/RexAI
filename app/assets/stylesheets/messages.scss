@@ -1,0 +1,43 @@
+.chat-room{
+  overflow-y: scroll;
+  height: 88%;
+  padding-top: 30px;
+  padding-bottom: 120px;
+
+  &::-webkit-scrollbar-track{
+    background: transparent !important;
+  }
+
+  .message{
+    padding: 30px 14vw;
+    display: flex;
+
+    .avatar{
+      div{
+        height: 40px;
+        width: 40px;
+        background-size: cover !important;
+        border-radius: 5px;
+      }
+    }
+
+    &.user {
+      background: var(--main-white);
+      .avatar div {
+        background: url("user.png") no-repeat center;
+      }
+    }
+
+    &.assistant {
+      background: var(--light-grey);
+
+      .avatar div {
+        background: url("rently.png") no-repeat center;
+      }
+    }
+
+    .content{
+      padding: 5px 0 0 30px;
+    }
+  }
+}

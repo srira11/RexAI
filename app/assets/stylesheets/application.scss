@@ -19,48 +19,11 @@ body{
   --primary-orange: #DC4712;
   --secondary-orange: #EE712B;
   --main-white: #FBF7F7;
+  --light-grey: #F4F4F4;
 }
 
-nav {
+#main{
+  height: calc(100vh - 100px);
   background: var(--main-white);
-  height: 120px;
   position: relative;
-  z-index: 1;
-  box-shadow: 0 0 50px 75px var(--main-white);
-
-  .column{
-    padding: 0 !important;
-    display: flex !important;
-    align-items: center;
-  }
-
-  .left.column {
-    padding-left: 70px !important;
-
-    a {
-      cursor: pointer;
-      color: black !important;
-      margin-right: 45px;
-
-      &.active{
-        color: var(--primary-orange) !important;
-        cursor: auto;
-      }
-    }
-  }
-
-  .center.column{
-    justify-content: center;
-  }
-
-  .right.column{
-    padding-right: 70px !important;
-    justify-content: flex-end;
-
-    .icon{
-      font-size: 2em !important;
-      transform: rotateZ(-90deg);
-      color: var(--secondary-orange) !important;
-    }
-  }
 }

@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>VectorGpt2</title>
+    <title>Rex AI</title>
+    <link rel="icon" type="image/x-icon" href="<%= image_path('rently.png') %>">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -24,7 +25,8 @@
         <i class="sign out link icon"></i>
       </div>
     </nav>
-    <div class="ui secondary segment"></div>
-    <%= yield %>
+    <div id="main">
+      <%= yield %>
+    </div>
   </body>
 </html>
