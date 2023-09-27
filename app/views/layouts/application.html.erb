@@ -6,11 +6,25 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.3/dist/semantic.min.css">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
+    <nav class="ui grid">
+      <div class="left five wide column">
+        <a id="fine-tune-item" class="active">Fine-tuned</a>
+        <a id="embedded-item">Embedded</a>
+      </div>
+      <div class="center six wide column">
+        <%= image_tag('logo.svg') %>
+      </div>
+      <div class="right column five wide column">
+        <i class="sign out link icon"></i>
+      </div>
+    </nav>
+    <div class="ui secondary segment"></div>
     <%= yield %>
   </body>
 </html>
