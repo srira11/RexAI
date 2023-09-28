@@ -6,7 +6,7 @@ ruby "3.2.1"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.0.8"
 
-# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+# The original assets pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem "sprockets-rails"
 
 # Use postgresql as the database for Active Record
@@ -35,6 +35,12 @@ gem "httparty"
 
 gem "redcarpet"
 
+gem "devise"
+
+gem 'omniauth-google-oauth2'
+
+gem 'omniauth-rails_csrf_protection'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 
@@ -46,7 +52,7 @@ gem "redcarpet"
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
-
+gem 'omniauth-google-oauth2'
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
@@ -80,3 +86,5 @@ end
 #   gem "selenium-webdriver"
 #
 # end
+
+gem "activeadmin", "~> 3.0"

@@ -3,7 +3,7 @@ import TurnDownService from "turndown"
 
 export default class extends Controller {
     static targets = ['chatBox', 'prompt'];
-    static values = { token: String }
+    static values = { token: String, image: String }
 
     initialize() {
         this.promptTarget.focus();
@@ -14,6 +14,7 @@ export default class extends Controller {
         this.inProgress = false;
         this.rendering = false;
         this.turnDownService = new TurnDownService();
+        console.log(this.imageValue);
     }
 
     changeModel(event) {
@@ -33,7 +34,11 @@ export default class extends Controller {
     createMessage(message, type) {
         let element = document.createElement('div');
         element.classList.add(type, 'message');
-        element.innerHTML = `<div><div class="avatar"></div></div>`
+
+        if(this.imageValue !== '' && type === 'user')
+            element.innerHTML = `<div><div class="avatar" style="background-image: url('${this.imageValue}')" ></div></div>`
+        else
+            element.innerHTML = `<div><div class="avatar"></div></div>`
 
         let content = document.createElement('div');
         content.classList.add('content');

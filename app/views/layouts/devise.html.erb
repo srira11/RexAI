@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Log In</title>
+  <link rel="icon" type="image/x-icon" href="<%= image_path('rently.png') %>">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/fomantic-ui@2.9.3/dist/semantic.min.css">
+  <%= stylesheet_link_tag "sign-in", "data-turbo-track": "reload" %>
+</head>
+<body>
+  <div id="main">
+    <%= yield %>
+  </div>
+</body>
+</html>

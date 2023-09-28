@@ -12,7 +12,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body data-controller="chat" data-chat-token-value="<%= form_authenticity_token %>">
+  <body data-controller="chat" data-chat-token-value="<%= form_authenticity_token %>"  data-chat-image-value="<%= current_user.image || '' %>">
     <nav class="ui grid">
       <div class="left five wide column">
         <a id="fine-tune-item" class="active" data-action="click->chat#changeModel">Fine-tuned</a>
@@ -22,7 +22,15 @@
         <%= image_tag('logo.svg') %>
       </div>
       <div class="right column five wide column">
-        <i class="sign out link icon"></i>
+        <% if user_signed_in? %>
+            <span><%= current_user.email %></span>
+        <% end %>
+        <a>
+          <i class="sign out link icon"></i>
+        </a>
+        <%= link_to destroy_user_session_path, data: { turbo_method: :delete } do %>
+          <i class="power off link icon"></i>
+        <% end %>
       </div>
     </nav>
     <div id="main">

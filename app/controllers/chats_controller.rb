@@ -1,6 +1,7 @@
 class ChatsController < ApplicationController
   include ApplicationHelper
   before_action :validate_params, only: :create
+  before_action :authenticate_user!
 
   def index
   end

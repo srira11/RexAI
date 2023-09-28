@@ -1,0 +1,37 @@
+<div class="sign-in">
+  <div class="container">
+    <h2><%= image_tag('logo.svg') %></h2>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div>
+        <%= f.label :email %><br/>
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'input field' %>
+      </div>
+
+      <div>
+        <%= f.label :password %><br/>
+        <%= f.password_field :password, autocomplete: "current-password", class: 'input field' %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <%= f.label :remember_me %>
+        <%= f.check_box :remember_me %>
+      <% end %>
+
+      <div class="actions">
+        <%= f.submit "Log in" %>
+      </div>
+    <% end %>
+
+    <div class="ui horizontal divider">Or</div>
+
+    <div class="omniauth">
+      <% if devise_mapping.omniauthable? %>
+        <%= button_to omniauth_authorize_path(resource_name, 'google_oauth2'), data: { turbo: false }, class: 'ui blue google icon button' do %>
+          <div class="google-icon"><div></div></div>
+          <div class="name">Sign in with Google</div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

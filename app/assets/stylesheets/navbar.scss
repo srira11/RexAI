@@ -35,10 +35,18 @@ nav {
     padding-right: 60px !important;
     justify-content: flex-end;
 
+    span{
+      padding: 0 20px;
+    }
+
     .icon {
       font-size: 2em !important;
-      transform: rotateZ(-90deg);
       color: var(--secondary-orange) !important;
+      margin-left: 20px;
+
+      &.sign.out{
+        transform: rotateZ(-90deg);
+      }
     }
   }
 }
