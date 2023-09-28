@@ -7,6 +7,8 @@ class WeaviateClient
     end
 
     def query_document(prompt)
+      return nil unless prompt.present?
+
       create_client.query.get(
         class_name: 'Document',
         fields: 'content type',

@@ -11,6 +11,8 @@ module ApiHelper
       message = "'messages' param cannot be empty."
     elsif !params[:messages].is_a? Array
       message = "'messages' param should be an array of messages."
+    elsif !params[:messages].last.present?
+      message = "Blank message is not a valid message."
     end
 
     render(json: { success: false, message: message }, status: :unprocessable_entity) if message
