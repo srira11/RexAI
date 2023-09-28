@@ -3,8 +3,8 @@
 </div>
 <div id="chat-gradient" data-controller="textarea">
   <div class="input bar">
-    <textarea data-chat-target="prompt" data-action="keydown.shift+enter->chat#chatCompletion:prevent keydown.enter->textarea#expand keyup->textarea#minimize"></textarea>
-    <button class="submit button" data-action="click->chat#chatCompletion" data-tooltip="shift + enter" data-position="top center" data-inverted="true" data-variation="mini basic">
+    <textarea data-chat-target="prompt" data-action="keydown.enter->chat#chatCompletion:prevent keydown.shift+enter->textarea#expand keyup->textarea#minimize"></textarea>
+    <button class="submit button" data-action="click->chat#chatCompletion">
       <i class="large telegram plane link icon"></i>
     </button>
   </div>

@@ -12,7 +12,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body data-controller="chat">
+  <body data-controller="chat" data-chat-token-value="<%= form_authenticity_token %>">
     <nav class="ui grid">
       <div class="left five wide column">
         <a id="fine-tune-item" class="active" data-action="click->chat#changeModel">Fine-tuned</a>

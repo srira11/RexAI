@@ -7,3 +7,4 @@ pin "@hotwired/stimulus-loading", to: "stimulus-loading.js", preload: true
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin "jquery", to: "https://ga.jspm.io/npm:jquery@3.7.1/dist/jquery.js"
 pin "fomantic-ui", to: "https://ga.jspm.io/npm:fomantic-ui@2.9.3/dist/semantic.js"
+pin "turndown", to: "https://ga.jspm.io/npm:turndown@7.1.2/lib/turndown.browser.es.js"

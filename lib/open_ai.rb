@@ -2,18 +2,18 @@ class OpenAi
   include HTTParty
   base_uri 'https://api.openai.com/v1'
 
-  @model = 'gpt-3.5-turbo'
+  @default_model = 'gpt-3.5-turbo'
   @api_key = ENV['OPENAI_APIKEY']
   @default_headers = { headers: { 'Authorization': "Bearer #{@api_key}" } }
 
   class << self
     attr_writer :api_key, :model
 
-    def create_chat_completion(messages:)
+    def create_chat_completion(from:, messages:)
       response = post('/chat/completions', {
         body: {
-          model: @model,
-          messages: conversation_format(messages),
+          messages: convert_messages(messages, from),
+          model: @model || @default_model,
           temperature: 0.1,
         }.to_json,
         headers: { 'Authorization': "Bearer #{@api_key}", 'Content-Type': 'application/json' },
@@ -84,6 +84,17 @@ class OpenAi
 
     private
 
+    def convert_messages(messages, type)
+      conversation_format(messages)
+      if type == :fine_tuned
+        @model = 'ft:gpt-3.5-turbo-0613:rently-com:final-training:82yHlobN'
+        messages.unshift({role: 'system', content: "You are an helpful customer support person working for the 'Rently' company and you should answer the queries asked by customers in the context of Rently."})
+      elsif type == :embedded
+        @model = 'gpt-3.5-turbo'
+        messages.unshift({role: 'system', content: embedding_prompt(messages.last[:content])})
+      end
+    end
+
     def conversation_format(arr)
       arr.map!.with_index do |value, index|
         if index.even?
@@ -92,9 +103,6 @@ class OpenAi
           {role: 'assistant', content: value}
         end
       end
-
-      # arr.unshift({role: 'system', content: "You are an helpful customer support person working for the 'Rently' company and you should answer the queries asked by customers in the context of Rently."})
-      arr.unshift({role: 'system', content: embedding_prompt(arr.last[:content])})
     end
 
     def embedding_prompt(prompt)
@@ -102,7 +110,8 @@ class OpenAi
 
       if document
         <<~EOL
-          You are an helpful customer support agent working for the 'Rently' company. Analyse the following document which consist of multiple questions having one common answer at the bottom. Based on the analysis, answer the question asked by the user.
+          You are an helpful customer support agent working for the 'Rently' company. Analyse the following documents which consist of multiple questions having one common answer at the bottom. 
+          Based on the analysis, answer the question asked by the user. If you can't find the answer, try to answer based on your knowledge. Do not mention about the document to the user.
   
           #{document['content']}
         EOL

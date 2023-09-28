@@ -4,7 +4,6 @@ export default class extends Controller {
 
     initialize(){
         this.index = 1;
-        this.promptTarget.focus();
     }
     expand(event) {
         if(this.index !== 5) {
