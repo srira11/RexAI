@@ -1,4 +1,5 @@
 <div class="sign-in">
+  <div class="error"><%= flash[:alert] %></div>
   <div class="container">
     <h2><%= image_tag('logo.svg') %></h2>
 
@@ -19,7 +20,7 @@
       <% end %>
 
       <div class="actions">
-        <%= f.submit "Log in" %>
+        <%= f.submit "Log in", data: {turbo: false} %>
       </div>
     <% end %>
 

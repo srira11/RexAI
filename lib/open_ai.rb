@@ -10,7 +10,7 @@ class OpenAi
     attr_writer :api_key, :model
 
     def create_chat_completion(from:, messages:)
-      response = post('/chat/completions', {
+      post('/chat/completions', {
         body: {
           messages: convert_messages(messages, from),
           model: @model || @default_model,
@@ -18,8 +18,6 @@ class OpenAi
         }.to_json,
         headers: { 'Authorization': "Bearer #{@api_key}", 'Content-Type': 'application/json' },
       })
-
-      response.dig('choices', 0, 'message', 'content') || response.dig('error', 'message')
     end
 
     def upload_file(path:, name:)

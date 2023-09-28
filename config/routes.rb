@@ -3,6 +3,10 @@ Rails.application.routes.draw do
   ActiveAdmin.routes(self)
   devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks' }
 
-  root "chats#index"
+  root 'chats#index'
   resources :chats, only: [:index, :create]
+
+  namespace :api do
+    post 'chats/completion', to: 'chats#create', format: :json
+  end
 end

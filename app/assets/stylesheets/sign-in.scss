@@ -23,6 +23,11 @@ body{
     width: 35vw
   }
 
+  .error{
+    position: relative;
+    bottom: 20px;
+  }
+
   h2 {
     text-align: center;
     color: #534545;
@@ -74,6 +79,7 @@ body{
       border: 2px solid #4285F4;
       display: inline-flex;
       padding: 0 !important;
+      border-radius: 0;
 
       .google-icon {
         height: 40px;
@@ -91,6 +97,7 @@ body{
       .name {
         background: #4285F4;
         padding: 10px 15px;
+        height: 40px;
       }
     }
   }

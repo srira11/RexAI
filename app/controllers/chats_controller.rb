@@ -1,5 +1,6 @@
 class ChatsController < ApplicationController
   include ApplicationHelper
+  include ApiHelper
   before_action :validate_params, only: :create
   before_action :authenticate_user!
 
@@ -7,26 +8,15 @@ class ChatsController < ApplicationController
   end
 
   def create
-    render(json: {
-      success: true,
-      completion: markdown(OpenAi.create_chat_completion(from: params[:type].to_sym, messages: params[:messages]))
-    }, status: :ok)
-  end
+    response = OpenAi.create_chat_completion(from: params[:type].to_sym, messages: params[:messages])
 
-  def validate_params
-    params[:type] = 'embedded' unless params[:type].present?
-    message = nil
+    completion = response.dig('choices', 0, 'message', 'content')
+    error = response.dig('error', 'message')
 
-    if %w(fine_tuned embedded).exclude? params[:type]
-      message = "Invalid type. Only 'fine_tuned' and 'embedded' types are allowed."
-    elsif params[:messages].nil?
-      message = "'messages' param is required."
-    elsif params[:messages].empty?
-      message = "'messages' param cannot be empty."
-    elsif !params[:messages].is_a? Array
-      message = "'messages' param should be an array of messages."
+    if error
+      render(json: { success: false, message: error }, status: :unprocessable_entity) and return
+    else
+      render(json: { success: true, completion: markdown_to_html(completion) }, status: :ok)
     end
-
-    render(json: { success: false, message: message }, status: :unprocessable_entity) if message
   end
 end
