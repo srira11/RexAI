@@ -1,5 +1,6 @@
 class Api::ChatsController < Api::ApiController
   include ApiHelper
+  before_action :doorkeeper_authorize!
   before_action :validate_params
   wrap_parameters false
   def create

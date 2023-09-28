@@ -88,3 +88,5 @@ end
 # end
 
 gem "activeadmin", "~> 3.0"
+
+gem "doorkeeper", "~> 5.6"
