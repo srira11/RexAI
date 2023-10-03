@@ -8,7 +8,7 @@ class ChatsController < ApplicationController
   end
 
   def create
-    response = OpenAi.create_chat_completion(from: params[:type].to_sym, messages: params[:messages])
+    response = OpenAi.create_chat_completion(params)
 
     completion = response.dig('choices', 0, 'message', 'content')
     error = response.dig('error', 'message')

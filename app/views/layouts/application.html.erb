@@ -17,6 +17,18 @@
       <div class="left five wide column">
         <a id="fine-tune-item" class="active" data-action="click->chat#changeModel">Fine-tuned</a>
         <a id="embedded-item" data-action="click->chat#changeModel">Embedded</a>
+        <a class="inputs" data-chat-target="extraInputs">
+          <table>
+            <tr>
+              <td><label>Limit</label></td>
+              <td>:&ensp;<input type='number' min="1" max="4" value='1' step="1" data-chat-target="limit"/></td>
+            </tr>
+            <tr>
+              <td><label>Distance</label></td>
+              <td>:&ensp;<input type='number' min="0.2" max="1" step="0.025" value="0.5" data-chat-target="distance"/></td>
+            </tr>
+          </table>
+        </a>
       </div>
       <div class="center six wide column">
         <%= image_tag('logo.svg') %>
@@ -26,7 +38,7 @@
             <span><%= current_user.email %></span>
         <% end %>
         <a>
-          <i class="sign out link icon"></i>
+          <i class="sign out link icon" data-action="click->chat#print"></i>
         </a>
         <%= link_to destroy_user_session_path, data: { turbo_method: :delete } do %>
           <i class="power off link icon"></i>

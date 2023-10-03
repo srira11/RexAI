@@ -5,7 +5,7 @@ class Api::ChatsController < Api::ApiController
   wrap_parameters false
   def create
     begin
-      response = OpenAi.create_chat_completion(from: params[:type].to_sym, messages: params[:messages].to_a)
+      response = OpenAi.create_chat_completion(params)
 
       completion = response.dig('choices', 0, 'message', 'content')
       error = response.dig('error', 'message')

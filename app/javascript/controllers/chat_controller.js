@@ -2,7 +2,7 @@ import {Controller} from "@hotwired/stimulus"
 import TurnDownService from "turndown"
 
 export default class extends Controller {
-    static targets = ['chatBox', 'prompt'];
+    static targets = ['chatBox', 'prompt', 'extraInputs', 'limit', 'distance'];
     static values = { token: String, image: String }
 
     initialize() {
@@ -14,7 +14,6 @@ export default class extends Controller {
         this.inProgress = false;
         this.rendering = false;
         this.turnDownService = new TurnDownService();
-        console.log(this.imageValue);
     }
 
     changeModel(event) {
@@ -29,6 +28,11 @@ export default class extends Controller {
             this.model = element.innerText;
             this.renderConversation();
         }
+
+        if (this.model === 'Embedded')
+            this.extraInputsTarget.style.display = 'inline';
+        else
+            this.extraInputsTarget.style.display = 'none';
     }
 
     createMessage(message, type) {
@@ -36,7 +40,7 @@ export default class extends Controller {
         element.classList.add(type, 'message');
 
         if(this.imageValue !== '' && type === 'user')
-            element.innerHTML = `<div><div class="avatar" style="background-image: url('${this.imageValue}')" ></div></div>`
+            element.innerHTML = `<div><div class="avatar" style="background-image: url('${this.imageValue}'), url('user.png')" ></div></div>`
         else
             element.innerHTML = `<div><div class="avatar"></div></div>`
 
@@ -105,6 +109,11 @@ export default class extends Controller {
             formData.append('messages[]', this.turnDownService.turndown(message));
         });
 
+        if(this.model === 'Embedded'){
+            formData.append('limit', this.limitTarget.value);
+            formData.append('distance', this.distanceTarget.value);
+        }
+
         this.promptTarget.value = '';
         this.promptTarget.style.height = '1.2em';
         this.inProgress = true;
@@ -115,8 +124,14 @@ export default class extends Controller {
         })
         let result = await response.json();
 
-        this.messagesArray().push(result['completion']);
-        lastContent.innerHTML = result['completion'];
+        if(result['completion']) {
+            this.messagesArray().push(result['completion']);
+            lastContent.innerHTML = result['completion'];
+        } else if(result['message']){
+            this.messagesArray().pop();
+            lastContent.innerHTML = result['message'];
+        }
+
         this.inProgress = false;
         this.scrollToBottom();
     }

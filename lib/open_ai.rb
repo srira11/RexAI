@@ -9,10 +9,11 @@ class OpenAi
   class << self
     attr_writer :api_key, :model
 
-    def create_chat_completion(from:, messages:)
+    def create_chat_completion(args)
+      messages = convert_messages(args)
       post('/chat/completions', {
         body: {
-          messages: convert_messages(messages, from),
+          messages: messages,
           model: @model || @default_model,
           temperature: 0.1,
         }.to_json,
@@ -82,14 +83,17 @@ class OpenAi
 
     private
 
-    def convert_messages(messages, type)
+    def convert_messages(args)
+      messages = args[:messages]
       conversation_format(messages)
-      if type == :fine_tuned
+      if args[:type] == 'fine_tuned'
         @model = 'ft:gpt-3.5-turbo-0613:rently-com:final-training:82yHlobN'
         messages.unshift({role: 'system', content: "You are an helpful customer support person working for the 'Rently' company and you should answer the queries asked by customers in the context of Rently."})
-      elsif type == :embedded
+      elsif args[:type] == 'embedded'
         @model = 'gpt-3.5-turbo'
-        messages.unshift({role: 'system', content: embedding_prompt(messages.last[:content])})
+        args[:limit] = 1 unless args[:limit]
+        args[:distance] = 0.5 unless args[:distance]
+        messages.unshift({role: 'system', content: embedding_prompt(messages.last[:content], args[:limit], args[:distance])})
       end
     end
 
@@ -103,16 +107,22 @@ class OpenAi
       end
     end
 
-    def embedding_prompt(prompt)
-      document = WeaviateClient.query_document(prompt).first
+    def embedding_prompt(prompt, limit, distance)
+      documents = WeaviateClient.query_document(prompt, limit , distance)
 
-      if document
-        <<~EOL
+      if documents.present?
+        str = <<~EOL
           You are an helpful customer support agent working for the 'Rently' company. Analyse the following documents which consist of multiple questions having one common answer at the bottom. 
           Based on the analysis, answer the question asked by the user. If you can't find the answer, try to answer based on your knowledge. Do not mention about the document to the user.
-  
-          #{document['content']}
+        
         EOL
+
+        documents.each_with_index do |document, index|
+          str << "DOCUMENT ##{index + 1}\n"
+          str << document['content']
+          str << "\n\n"
+        end
+        str
       else
         "You are an helpful customer support person working for the 'Rently' company and you should answer the queries asked by customers in the context of Rently."
       end

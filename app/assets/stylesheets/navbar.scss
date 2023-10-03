@@ -15,7 +15,7 @@ nav {
   .left.column {
     padding-left: 60px !important;
 
-    a {
+    a:not(.inputs) {
       cursor: pointer;
       color: black !important;
       margin-right: 45px;
@@ -23,6 +23,19 @@ nav {
       &.active {
         color: var(--primary-orange) !important;
         cursor: auto;
+      }
+    }
+
+    a.inputs{
+      color: black !important;
+      display: none;
+
+      input{
+        width: 70px;
+
+        &:focus{
+          outline: none;
+        }
       }
     }
   }
