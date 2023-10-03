@@ -139,4 +139,29 @@ export default class extends Controller {
     scrollToBottom() {
         this.chatBoxTarget.scrollTo({top: this.chatBoxTarget.scrollHeight});
     }
+
+    print(){
+        let printWindow = window.open('', '', 'height=800,width=800');
+        printWindow.document.write(`
+        <html lang="en">
+        <head>
+            <title>Rently AI</title>
+            <style>
+                body{padding: 20px 40px; font-family: system-ui;margin: 0}
+                div:nth-of-type(odd):before{content: 'user';color: dodgerblue}
+                div:nth-of-type(even):before{content: 'assistant';color: mediumseagreen}
+                div:before{display: block;margin-bottom: 10px;}
+                div{border: 1px solid black;border-radius: 5px;padding: 15px 20px;margin-bottom: 23px}
+            </style>
+        </head>
+        <body>
+        <h3>Rently AI chat export</h3>
+        `);
+        this.messagesArray().forEach((message) => {
+            printWindow.document.write('<div>' + message + '</div>');
+        });
+        printWindow.document.write('</body></html>');
+        printWindow.document.close();
+        printWindow.print();
+    }
 }

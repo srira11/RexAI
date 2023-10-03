@@ -6,8 +6,8 @@ class AdaDataset
 
   class << self
     attr_reader :records
-    def parse
-      CSV.foreach(Rails.root.to_s << '/lib/assets/ada-export-rently-2023-09-06.csv', headers: true) do |row|
+    def parse(filename)
+      CSV.foreach(Rails.root.to_s << '/lib/assets/' << filename, headers: true) do |row|
         next if row[4] == nil
 
         questions = row[4].split(/\n/).map { _1[2..] }

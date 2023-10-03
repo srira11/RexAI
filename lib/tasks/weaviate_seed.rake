@@ -1,6 +1,6 @@
 task seed_weaviate_database_with_ada_records: :environment do
   weaviate_client = WeaviateClient.create_client
-  AdaDataset.parse
+  AdaDataset.parse('ada-export-rently-2023-09-26.csv')
 
   AdaDataset.records.each do |record|
 
